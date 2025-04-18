@@ -1,5 +1,5 @@
 <template>
-{{typeList}}
+<!--{{typeList}}-->
   <div class="login-container">
     <!-- 左侧内容，包含 logo 和登录表单 -->
     <div class="left-section">
@@ -98,14 +98,15 @@ import axios from 'axios';
 import { ElMessage } from 'element-plus';
 import { Plus } from '@element-plus/icons-vue';
 import {getTypeAll} from "@/assets/type.js";
-// 测试
-const typeList = ref()
-function domeFun(){
-  getTypeAll().then(res =>{
-    typeList.value = res.data.data
-  })
-}
-domeFun()
+import {getLogin} from "@/assets/user.js";
+// // 测试
+// const typeList = ref()
+// function domeFun(){
+//   getTypeAll().then(res =>{
+//     typeList.value = res.data.data
+//   })
+// }
+// domeFun()
 const router = useRouter();
 const dialogVisible = ref(false);
 const loginForm = ref({
@@ -207,11 +208,7 @@ const beforeAvatarUpload = (rawFile) => {
 
 // 登录
 const handleLogin = () => {
-  axios({
-    url: '/api/user/login',
-    method: 'post',
-    data: loginForm.value,
-  }).then((res) => {
+ getLogin(loginForm.value).then((res) => {
     if (res.data.code === 200) {
       ElMessage.success('登录成功');
       localStorage.setItem('photo', res.data.data.photo);
