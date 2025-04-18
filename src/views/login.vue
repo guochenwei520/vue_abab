@@ -165,7 +165,7 @@ const submitForm = async (formEl) => {
       axios({
         method: 'post',
         url: '/api/user/addUser',
-        data: ruleForm.value,
+        params: ruleForm.value,
       }).then((res) => {
         if (res.data.code === 200) {
           ElMessage.success('注册成功');
