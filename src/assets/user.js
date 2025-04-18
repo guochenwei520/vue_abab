@@ -1,10 +1,17 @@
 import request from "@/assets/index.js";
 
-
+// 登录
+export function getLogin(data){
+    return request({
+        url:"/user/login",
+        method:"get",
+        data
+    })
+}
 export function getUserLike(data){
     return request({
         url:"user/userLike",
-        method:"post",
+        method:"get",
         data
     })
 }
@@ -12,7 +19,7 @@ export function getUserLike(data){
 export function getUserLikeAdd(data){
     return request({
         url:"user/userLikeAdd",
-        method:"post",
+        method:"get",
         data
     })
 }
@@ -20,7 +27,7 @@ export function getUserLikeAdd(data){
 export function getUserLikeDel(data){
     return request({
         url:"user/userLikeDel",
-        method:"post",
+        method:"get",
         data
     })
 }
