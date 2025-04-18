@@ -103,7 +103,7 @@ const typeList = ref()
 function domeFun(){
   axios({
     url:"/api/type/typeAll",
-    method:"post"
+    method:"get"
   }).then(res =>{
     typeList.value = res.data.data
   })
