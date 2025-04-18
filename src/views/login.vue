@@ -105,6 +105,7 @@ function domeFun(){
     url:"/api/type/typeAll",
     method:"get"
   }).then(res =>{
+    console.log(res.data)
     typeList.value = res.data.data
   })
 }
