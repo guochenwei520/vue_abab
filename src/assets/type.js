@@ -1,8 +1,8 @@
 import request from "@/assets/index.js";
 
 export function getTypeAll(){
-    request({
+   return  request({
         url:"type/typeAll",
-        method:"get"
+        method:"post"
     })
 }
