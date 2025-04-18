@@ -1,10 +1,11 @@
 <template>
+  
   <div class="login-container">
     <!-- 左侧内容，包含 logo 和登录表单 -->
     <div class="left-section">
       <div class="logo">
       </div>
-
+{{typeList}}
       <h2>用户登录</h2>
       <div class="separator"></div>
       <form @submit.prevent="handleLogin">
@@ -97,6 +98,17 @@ import axios from 'axios';
 import { ElMessage } from 'element-plus';
 import { Plus } from '@element-plus/icons-vue';
 
+// 测试
+const typeList = ref()
+function domeFun(){
+  axios({
+    url:"/api/type/typeAll",
+    method:"post"
+  }).then(res =>{
+    typeList.value = res.data.data
+  })
+}
+domeFun()
 const router = useRouter();
 const dialogVisible = ref(false);
 const loginForm = ref({
