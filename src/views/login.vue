@@ -102,7 +102,7 @@ import { Plus } from '@element-plus/icons-vue';
 const typeList = ref()
 function domeFun(){
   axios({
-    url:"/api/type/typeAll",
+    url:"https://abab5-153392-5-1329683064.sh.run.tcloudbase.com/type/typeAll",
     method:"get"
   }).then(res =>{
     console.log(res.data)
