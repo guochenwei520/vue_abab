@@ -94,10 +94,11 @@
 <script setup>
 import { reactive, ref } from 'vue';
 import { useRouter } from 'vue-router';
+import axios from 'axios';
 import { ElMessage } from 'element-plus';
 import { Plus } from '@element-plus/icons-vue';
 import {getTypeAll} from "@/assets/type.js";
-import {getLogin, getUserAdd, getUserDis} from "@/assets/user.js";
+import {getLogin} from "@/assets/user.js";
 // // 测试
 // const typeList = ref()
 // function domeFun(){
@@ -138,7 +139,7 @@ const ruleForm = ref({
   userName1: '',
   username: '',
   password: '',
-
+  password2: '',
   photo: '',
 });
 const ruleFormRef = ref();
@@ -171,19 +172,16 @@ const submitForm = async (formEl) => {
   if (!formEl) return;
   await formEl.validate((valid, fields) => {
     if (valid) {
-      getUserDis(ruleForm.value.username).then(res =>{
-        if (res.data.code == 200){
-          ElMessage.error("账号已存在")
-          return null;
-        }else{
-          getUserAdd(ruleForm.value).then((res) => {
-            if (res.data.code === 200) {
-              ElMessage.success('注册成功');
-              dialogVisible.value = false;
-            }
-          });
+      axios({
+        method: 'post',
+        url: '/api/user/addUser',
+        params: ruleForm.value,
+      }).then((res) => {
+        if (res.data.code === 200) {
+          ElMessage.success('注册成功');
+          dialogVisible.value = false;
         }
-      })
+      });
       console.log('submit!');
     } else {
       console.log('error submit!', fields);
@@ -213,7 +211,7 @@ const handleLogin = () => {
  getLogin(loginForm.value).then((res) => {
     if (res.data.code === 200) {
       ElMessage.success('登录成功');
-      // localStorage.setItem('photo', res.data.data.photo);
+      localStorage.setItem('photo', res.data.data.photo);
       localStorage.setItem('user', res.data.data.userName1);
       localStorage.setItem("userId", res.data.data.userId);
       router.push('/main');
