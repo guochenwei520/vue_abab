@@ -83,6 +83,8 @@ import { ref } from "vue";
 import axios from "axios";
 import router from "@/router/index.js";
 import { ElMessage } from "element-plus";
+import {getTypeAll} from "@/assets/type.js";
+import {getOpusList} from "@/assets/opus.js";
 
 // 对话框提示信息
 let log = ref({
@@ -127,11 +129,7 @@ let total = "";
 const opusData = ref();
 
 function opusList() {
-  axios({
-    url: "/api/Opus/opusAll",
-    method: "post",
-    data: pageData.value,
-  }).then((res) => {
+  getOpusList(pageData.value).then((res) => {
     if (res.data.code === 200) {
       opusData.value = res.data.data.list;
       total = res.data.data.total;
@@ -141,10 +139,7 @@ function opusList() {
 // 类型回显
 const typeData= ref([])
 function typeList(){
-  axios({
-    method:"post",
-    url:'/api/type/typeAll'
-  }).then(res=>{
+  getTypeAll().then(res=>{
     if (res.data.code === 200){
       typeData.value = res.data.data
     }

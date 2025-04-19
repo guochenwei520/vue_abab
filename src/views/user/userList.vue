@@ -23,6 +23,7 @@
 <script setup>
 import { ref } from 'vue';
 import axios from "axios";
+import {getUserAll} from "@/assets/user.js";
 
 const userList=ref()
 const pageData=ref({
@@ -30,11 +31,7 @@ const pageData=ref({
   pageSize:20
 })
 function userData(){
-  axios({
-    method:"post",
-    url:"/api/user/userAll",
-    data:pageData.value
-  }).then(res=>{
+ getUserAll(pageData.value).then(res=>{
     if (res.data.code === 200){
       userList.value=res.data.data.records
     }

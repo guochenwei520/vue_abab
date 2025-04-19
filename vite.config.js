@@ -18,7 +18,7 @@ export default defineConfig({
     server: {
         proxy: {
             '/api': {
-                target: 'http://localhost:8080',
+                target: 'https://abab5-153392-5-1329683064.sh.run.tcloudbase.com/',
                 changeOrigin: true,
                 rewrite: (path) => path.replace(/^\/api/, ''),
             },

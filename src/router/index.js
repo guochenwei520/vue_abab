@@ -78,7 +78,7 @@ router.beforeEach((to) => {
   if (to.path === '/') {
     return true;
   }
-  const item = localStorage.getItem("photo");
+  const item = localStorage.getItem("user");
   if (item) {
     return true;
   }

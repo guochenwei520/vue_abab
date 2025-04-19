@@ -62,6 +62,7 @@ import {ref} from "vue";
 import axios from "axios";
 import router from "@/router/index.js";
 import {ElMessage} from "element-plus";
+import {getOpusList} from "@/assets/opus.js";
 // 对话框提示信息
 let log = ref({
   log:""
@@ -102,11 +103,7 @@ let  total = ""
 const opusData = ref();
 
 function opusList() {
-  axios({
-    url: "/api/Opus/opusAll",
-    method: "post",
-    data: pageData.value,
-  }).then((res) => {
+  getOpusList(pageData.value).then((res) => {
     if (res.data.code === 200) {
       opusData.value = res.data.data.list;
       total = res.data.data.total

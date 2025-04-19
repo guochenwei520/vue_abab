@@ -1,7 +1,7 @@
 <template>
   <div :class="themeClass" class="article-wrapper">
     <!-- 视频播放 -->
-    <video src="./7e6d8fdc6b3eea71717d225576b43149.mp4" loop muted autoplay></video>
+<!--    <video src="./7e6d8fdc6b3eea71717d225576b43149.mp4" loop muted autoplay></video>-->
     <div class="article-card" :class="{ 'fade-in': isArticleLoaded }">
       <header class="article-header" :class="{ 'fade-in-delay-1': isArticleLoaded }">
         <div class="header-bg"></div>
@@ -45,13 +45,13 @@
 
 <script setup>
 import { ref, onMounted, computed, createApp, resolveDirective } from 'vue';
-import axios from 'axios';
 import * as ElementPlusIconsVue from '@element-plus/icons-vue';
 import App from "@/App.vue";
 import { Star, StarFilled } from "@element-plus/icons-vue";
 import { getUserLike, getUserLikeAdd, getUserLikeDel } from "@/assets/user.js";
 import Login from "@/views/login.vue";
 import { ElMessage } from "element-plus";
+import {getOpusList} from "@/assets/opus.js";
 
 // 收藏方法
 let likeFlag = ref(false);
@@ -123,7 +123,7 @@ const themeClass = ref('');
 const fetchOpusList = async () => {
   try {
     pageData.value.opusId = localStorage.getItem('opusId');
-    const response = await axios.post('/api/Opus/opusAll', pageData.value);
+    const response = await getOpusList(pageData.value)
     if (response.data.code === 200) {
       opusData.value = response.data.data.list;
     } else {

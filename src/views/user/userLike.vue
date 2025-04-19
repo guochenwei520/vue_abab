@@ -48,13 +48,14 @@ import { ref } from "vue";
 import axios from "axios";
 import router from "@/router/index.js";
 import { ElMessage } from "element-plus";
-import {getUserLikeDel} from "@/assets/user.js";
+import {getUserLike, getUserLikeDel} from "@/assets/user.js";
 
 
 const pageData = ref({
   pageNum: 1,
   pageSize: 20,
-  userId:localStorage.getItem("userId")
+  userId:localStorage.getItem("userId"),
+  opusId:null
 });
 const likeDel=ref({
   userId:localStorage.getItem("userId"),
@@ -75,11 +76,7 @@ let total = "";
 const opusData = ref([]);
 // 收藏列表显示
 function opusList() {
-  axios({
-    url: "/api/user/userLike",
-    method: "post",
-    data: pageData.value,
-  }).then((res) => {
+  getUserLike(pageData.value).then((res) => {
     if (res.data.code === 200) {
       for (let i = 0; i < res.data.data.list[0].userOpuses.length; i++) {
           opusData.value.push(res.data.data.list[0].userOpuses[i].opus)

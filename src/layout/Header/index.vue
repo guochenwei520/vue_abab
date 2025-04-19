@@ -31,7 +31,7 @@ function clear() {
 <!--      </el-sub-menu>-->
       <el-menu-item index="/opus">上传</el-menu-item>
       <div>
-        <el-avatar :size="50" :src="photo" style="margin-left: 20px"/>
+<!--        <el-avatar :size="50" :src="photo" style="margin-left: 20px"/>-->
 
       </div>
       <p style="color: #000000; margin-left: 5px">{{ user }}</p>

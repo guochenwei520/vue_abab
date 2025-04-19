@@ -57,16 +57,12 @@
 
 <script setup>
 import {ref} from "vue";
-import axios from "axios";
 import router from "@/router/index.js";
 import {ElMessage} from "element-plus";
+import {getOpusList, getOpusShen} from "@/assets/opus.js";
 
 function shang(Id, updFlag) {
-  axios({
-    method: 'post',
-    url: "api/Opus/updateOpus",
-    params: {opusId: Id, updFlag: updFlag}
-  }).then(res => {
+  getOpusShen(id,updFlag).then(res => {
     if (res.data.code === 200) {
       ElMessage.success("上架成功")
       location.reload()
@@ -90,11 +86,7 @@ let total = ""
 const opusData = ref();
 
 function opusList() {
-  axios({
-    url: "/api/Opus/opusAll",
-    method: "post",
-    data: pageData.value,
-  }).then((res) => {
+  getOpusList(pageData.value).then((res) => {
     if (res.data.code === 200) {
       opusData.value = res.data.data.list;
       total = res.data.data.total

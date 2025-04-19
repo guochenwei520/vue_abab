@@ -58,9 +58,10 @@
 
 <script setup>
 import {ref} from "vue";
-import axios from "axios";
+
 import router from "@/router/index.js";
 import {ElMessage} from "element-plus";
+import {getOpusHui, getOpusList} from "@/assets/opus.js";
 // 对话框提示信息
 let log = ref({
   log: ""
@@ -106,11 +107,7 @@ function deleOpus(opusId) {
 
 // 恢复到作品列表
 function huiOpus(id) {
-  axios({
-    method: "post",
-    url: "/api/Opus/huiOpus",
-    params: {opusId: id}
-  }).then(res => {
+  getOpusHui(id).then(res => {
     if (res.data.code === 200) {
       ElMessage.success("恢复成功")
       location.reload()
@@ -122,11 +119,7 @@ let total = ""
 const opusData = ref();
 
 function opusList() {
-  axios({
-    url: "/api/Opus/opusAll",
-    method: "post",
-    data: pageData.value,
-  }).then((res) => {
+ getOpusList(pageData.value).then((res) => {
     if (res.data.code === 200) {
       opusData.value = res.data.data.list;
       total = res.data.data.total

@@ -1,4 +1,5 @@
 <template>
+<!--{{typeList}}-->
   <div class="login-container">
     <!-- 左侧内容，包含 logo 和登录表单 -->
     <div class="left-section">
@@ -93,10 +94,18 @@
 <script setup>
 import { reactive, ref } from 'vue';
 import { useRouter } from 'vue-router';
-import axios from 'axios';
 import { ElMessage } from 'element-plus';
 import { Plus } from '@element-plus/icons-vue';
-
+import {getTypeAll} from "@/assets/type.js";
+import {getLogin, getUserAdd, getUserDis} from "@/assets/user.js";
+// // 测试
+// const typeList = ref()
+// function domeFun(){
+//   getTypeAll().then(res =>{
+//     typeList.value = res.data.data
+//   })
+// }
+// domeFun()
 const router = useRouter();
 const dialogVisible = ref(false);
 const loginForm = ref({
@@ -129,7 +138,7 @@ const ruleForm = ref({
   userName1: '',
   username: '',
   password: '',
-  password2: '',
+
   photo: '',
 });
 const ruleFormRef = ref();
@@ -162,16 +171,19 @@ const submitForm = async (formEl) => {
   if (!formEl) return;
   await formEl.validate((valid, fields) => {
     if (valid) {
-      axios({
-        method: 'post',
-        url: '/api/user/addUser',
-        data: ruleForm.value,
-      }).then((res) => {
-        if (res.data.code === 200) {
-          ElMessage.success('注册成功');
-          dialogVisible.value = false;
+      getUserDis(ruleForm.value.username).then(res =>{
+        if (res.data.code == 200){
+          ElMessage.error("账号已存在")
+          return null;
+        }else{
+          getUserAdd(ruleForm.value).then((res) => {
+            if (res.data.code === 200) {
+              ElMessage.success('注册成功');
+              dialogVisible.value = false;
+            }
+          });
         }
-      });
+      })
       console.log('submit!');
     } else {
       console.log('error submit!', fields);
@@ -198,14 +210,10 @@ const beforeAvatarUpload = (rawFile) => {
 
 // 登录
 const handleLogin = () => {
-  axios({
-    url: '/api/user/login',
-    method: 'post',
-    data: loginForm.value,
-  }).then((res) => {
+ getLogin(loginForm.value).then((res) => {
     if (res.data.code === 200) {
       ElMessage.success('登录成功');
-      localStorage.setItem('photo', res.data.data.photo);
+      // localStorage.setItem('photo', res.data.data.photo);
       localStorage.setItem('user', res.data.data.userName1);
       localStorage.setItem("userId", res.data.data.userId);
       router.push('/main');
