@@ -1,5 +1,5 @@
 <template>
-<!--{{typeList}}-->
+{{typeList}}
   <div class="login-container">
     <!-- 左侧内容，包含 logo 和登录表单 -->
     <div class="left-section">
@@ -98,7 +98,12 @@ import { ElMessage } from 'element-plus';
 import { Plus } from '@element-plus/icons-vue';
 import {getTypeAll} from "@/assets/type.js";
 import {getLogin, getUserAdd, getUserDis} from "@/assets/user.js";
-
+const  typeList = ref()
+getTypeAll().then(ref =>{
+  if ( ref.data.code == 200){
+    typeList.value = ref.data.data
+  }
+})
 const router = useRouter();
 const dialogVisible = ref(false);
 const loginForm = ref({
