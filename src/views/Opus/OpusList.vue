@@ -80,11 +80,10 @@
 
 <script setup>
 import { ref } from "vue";
-import axios from "axios";
 import router from "@/router/index.js";
 import { ElMessage } from "element-plus";
 import {getTypeAll} from "@/assets/type.js";
-import {getOpusList} from "@/assets/opus.js";
+import {getOpusDel, getOpusList} from "@/assets/opus.js";
 
 // 对话框提示信息
 let log = ref({
@@ -113,11 +112,7 @@ function delOpus(opusId, name) {
 
 function delOk() {
   centerDialogVisible.value = false;
-  axios({
-    url: "/api/Opus/delOpus",
-    method: 'post',
-    params: { opusId: flag }
-  }).then(res => {
+  getOpusDel(flag).then(res => {
     if (res.data.code == 200) {
       ElMessage.success("删除成功");
       location.reload();
