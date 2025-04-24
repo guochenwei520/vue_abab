@@ -12,20 +12,20 @@
     >
       <h3>上传海龟汤</h3>
       <el-form-item label="汤名" prop="opusTitle">
-        <el-input v-model="ruleForm.opusTitle" />
+        <el-input v-model="ruleForm.opusTitle"/>
       </el-form-item>
       <el-form-item label="汤面" prop="opusName">
-        <el-input v-model="ruleForm.opusName" type="textarea" />
+        <el-input v-model="ruleForm.opusName" type="textarea"/>
       </el-form-item>
       <el-form-item label="汤底" prop="opusMain">
-        <el-input v-model="ruleForm.opusMain" type="textarea" />
+        <el-input v-model="ruleForm.opusMain" type="textarea"/>
       </el-form-item>
       <el-form-item prop="location">
-        <el-segmented v-model="ruleForm.location" :options="locationOptions" />
+        <el-segmented v-model="ruleForm.location" :options="locationOptions"/>
       </el-form-item>
       <el-form-item label="类型" prop="typeId">
         <el-checkbox-group v-model="ruleForm.typeId">
-          <el-checkbox :value="i.typeId" v-for="i in typeData">{{i.typeName}}</el-checkbox>
+          <el-checkbox :value="i.typeId" v-for="i in typeData">{{ i.typeName }}</el-checkbox>
         </el-checkbox-group>
       </el-form-item>
       <el-form-item prop="resource">
@@ -43,9 +43,10 @@
   </div>
 </template>
 <script setup>
-import { reactive, ref } from 'vue';
-import axios from "axios";
+import {reactive, ref} from 'vue';
 import router from "@/router/index.js";
+import {getTypeAll} from "@/assets/type.js";
+import {getOpusAdd} from "@/assets/opus.js";
 
 const formSize = ref('default');
 const ruleFormRef = ref(null);
@@ -56,40 +57,36 @@ const ruleForm = ref({
   location: '',
   typeId: [], // 修正为数组类型
   resource: '',
-  user:localStorage.getItem("user")
+  user: localStorage.getItem("user")
 });
 // 类型回显
-const typeData= ref()
-function typeList(){
-  axios({
-    method:"post",
-    url:'/api/type/typeAll'
-  }).then(res=>{
-    if (res.data.code === 200){
+const typeData = ref()
+
+function typeList() {
+  getTypeAll().then(res => {
+    if (res.data.code === 200) {
       typeData.value = res.data.data
     }
   })
 }
+
 typeList()
 const locationOptions = ['简单', '普通', '困难', '地狱难度'];
 const rules = reactive({
-  opusTitle: [{ required: true, message: '请输入或选择内容', trigger: 'blur' }],
-  opusName: [{ required: true, message: '请输入或选择内容', trigger: 'blur' }],
-  opusMain: [{ required: true, message: '请输入或选择内容', trigger: 'blur' }],
-  location: [{ required: true, message: '请输入或选择内容', trigger: 'change' }],
-  typeId: [{ type: 'array', required: true, message: '请输入或选择内容', trigger: 'change' }],
-  resource: [{ required: true, message: '请输入或选择内容', trigger: 'change' }],
+  opusTitle: [{required: true, message: '请输入或选择内容', trigger: 'blur'}],
+  opusName: [{required: true, message: '请输入或选择内容', trigger: 'blur'}],
+  opusMain: [{required: true, message: '请输入或选择内容', trigger: 'blur'}],
+  location: [{required: true, message: '请输入或选择内容', trigger: 'change'}],
+  typeId: [{type: 'array', required: true, message: '请输入或选择内容', trigger: 'change'}],
+  resource: [{required: true, message: '请输入或选择内容', trigger: 'change'}],
 });
 
 const submitForm = async (formEl) => {
   if (!formEl) return;
   await formEl.validate((valid, fields) => {
     if (valid) {
-      axios({
-        method:'post',
-        url:'/api/Opus/addOpus',
-        data:ruleForm.value
-      }).then(res =>{
+      console.log(ruleForm.value)
+      getOpusAdd(ruleForm.value).then(res => {
         router.push("/opusList")
       })
     } else {
