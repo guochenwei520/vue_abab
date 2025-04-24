@@ -24,8 +24,8 @@
       <el-form-item prop="location">
         <el-segmented v-model="ruleForm[0].location" :options="locationOptions" />
       </el-form-item>
-      <el-form-item label="类型" prop="opusTypes">
-        <el-checkbox-group v-model="ruleForm[0].opusTypes">
+      <el-form-item label="类型" prop="typeId">
+        <el-checkbox-group v-model="ruleForm[0].typeId">
           <el-checkbox :value="i.typeId" v-for="i in typeData">{{i.typeName}}</el-checkbox>
         </el-checkbox-group>
       </el-form-item>
@@ -45,9 +45,9 @@
 </template>
 <script setup>
 import { reactive, ref } from 'vue';
-import axios from "axios";
 import router from "@/router/index.js";
 import {getOpusList, insetOpus} from "@/assets/opus.js";
+import {getTypeAll} from "@/assets/type.js";
 const typeData= ref()
 const formSize = ref('default');
 const ruleFormRef = ref(null);
@@ -57,15 +57,12 @@ const ruleForm = ref([{
   opusName: '',
   opusMain: '',
   location: '',
-  opusTypes: [],
+  typeId: [],
   resource: '',
 }]);
 // 类型回显
 function typeList(){
-  axios({
-    method:"post",
-    url:'/api/type/typeAll'
-  }).then(res=>{
+  getTypeAll().then(res=>{
     if (res.data.code === 200){
       typeData.value = res.data.data
     }
@@ -78,7 +75,7 @@ const rules = reactive({
   opusName: [{ required: true, message: '请输入或选择内容', trigger: 'blur' }],
   opusMain: [{ required: true, message: '请输入或选择内容', trigger: 'blur' }],
   location: [{ required: true, message: '请输入或选择内容', trigger: 'change' }],
-  opusTypes: [{ type: 'array', required: true, message: '请输入或选择内容', trigger: 'change' }],
+  typeId: [{ type: 'array', required: true, message: '请输入或选择内容', trigger: 'change' }],
   resource: [{ required: true, message: '请输入或选择内容', trigger: 'change' }],
 });
 
@@ -86,6 +83,7 @@ const submitForm = async (formEl) => {
   if (!formEl) return;
   await formEl.validate((valid, fields) => {
     if (valid) {
+      console.log(ruleForm.value[0])
      insetOpus(ruleForm.value[0]).then(res =>{
         history.back()
       })
@@ -116,7 +114,7 @@ function opusList(){
       //豆包解释
       //执行回调函数 typeId => typeId.typeId。回调函数会从每个对象中提取出 typeId 属性的值，然后 map 方法会返回一个新的数组，
       // 这个新数组就是仅包含 typeId 的数组。通过将这个新数组赋值给 ruleForm.value.opusTypes，就完成了数据格式的转换，使其符合多选框组件的要求，从而正确实现回显。
-      ruleForm.value[0].opusTypes=res.data.data.list[0].opusTypes.map(typeId=>typeId.typeId)
+      ruleForm.value[0].typeId=res.data.data.list[0].opusTypes.map(typeId=>typeId.typeId)
     }
   })
 }
