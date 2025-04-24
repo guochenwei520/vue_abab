@@ -59,15 +59,25 @@
 import {ref} from "vue";
 import router from "@/router/index.js";
 import {ElMessage} from "element-plus";
-import {getOpusList, getOpusShen} from "@/assets/opus.js";
+import {getOpusDelete, getOpusList, getOpusShen} from "@/assets/opus.js";
 
-function shang(Id, updFlag) {
-  getOpusShen(id,updFlag).then(res => {
-    if (res.data.code === 200) {
-      ElMessage.success("上架成功")
-      location.reload()
-    }
-  })
+function shang(id, updFlag) {
+  if (updFlag){
+    getOpusShen(id,updFlag).then(res => {
+      if (res.data.code === 200) {
+        ElMessage.success("上架成功")
+        location.reload()
+      }
+    })
+  }else {
+    getOpusDelete(id).then(res => {
+      if (res.data.code === 200) {
+        ElMessage.success("删除成功")
+        opusList()
+      }
+    })
+  }
+
 }
 
 const handleClick = () => {
