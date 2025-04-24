@@ -61,7 +61,7 @@ import {ref} from "vue";
 
 import router from "@/router/index.js";
 import {ElMessage} from "element-plus";
-import {getOpusHui, getOpusList} from "@/assets/opus.js";
+import {getOpusDelete, getOpusHui, getOpusList} from "@/assets/opus.js";
 // 对话框提示信息
 let log = ref({
   log: ""
@@ -93,11 +93,7 @@ function delOk() {
 
 // 彻底删除
 function deleOpus(opusId) {
-  axios({
-    method: "post",
-    url: "/api/Opus/opusDelete",
-    params: {opusId: opusId}
-  }).then(res => {
+ getOpusDelete(opusId).then(res => {
     if (res.data.code === 200) {
       ElMessage.success("删除成功")
       opusList()
