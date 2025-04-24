@@ -4,14 +4,14 @@ import request from "@/assets/index.js";
 export function getLogin(data){
     return request({
         url:"/user/login",
-        method:"get",
+        method:"post",
         params:data
     })
 }
 export function getUserLike(data){
     return request({
         url:"user/userLike",
-        method:"get",
+        method:"post",
         params:data
     })
 }
@@ -19,7 +19,7 @@ export function getUserLike(data){
 export function getUserLikeAdd(data){
     return request({
         url:"user/userLikeAdd",
-        method:"get",
+        method:"post",
         params:data
     })
 }
@@ -27,7 +27,7 @@ export function getUserLikeAdd(data){
 export function getUserLikeDel(data){
     return request({
         url:"user/userLikeDel",
-        method:"get",
+        method:"post",
         params:data
     })
 }
@@ -35,7 +35,7 @@ export function getUserLikeDel(data){
 export function getUserAdd(data){
     return request({
         url:"user/addUser",
-        method:"get",
+        method:"post",
         params:data
     })
 }
@@ -43,7 +43,7 @@ export function getUserAdd(data){
 export  function getUserAll(data){
     return request({
         url:"user/userAll",
-        method:"get",
+        method:"post",
         params:data
     })
 }
@@ -51,7 +51,7 @@ export  function getUserAll(data){
 export function getUserDis(username){
     return request({
         url:"user/userDis",
-        method:"get",
+        method:"post",
         params:{"username":username}
     })
 }
