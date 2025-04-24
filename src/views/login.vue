@@ -51,7 +51,7 @@
     头像：
     <el-upload
         class="avatar-uploader"
-        action="/api/user/photo"
+        action="https://abab5-153392-5-1329683064.sh.run.tcloudbase.com/user/photo"
         :show-file-list="false"
         :on-success="handleAvatarSuccess"
         :before-upload="beforeAvatarUpload"
