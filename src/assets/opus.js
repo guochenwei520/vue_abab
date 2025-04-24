@@ -3,16 +3,16 @@ import request from "@/assets/index.js";
 export function getOpusList(data) {
     return request({
         url: "/Opus/opusAll",
-        method: "get",
+        method: "post",
         params:data
     })
 }
-
+// 作品修改
 export function insetOpus(data) {
     return request({
         url: "/Opus/opusUpd",
-        method: "get",
-        params:data
+        method: "post",
+        data
     })
 }
 
@@ -20,16 +20,39 @@ export function insetOpus(data) {
 export  function getOpusHui(data){
     return request({
         url:"/Opus/huiOpus",
-        method:"get",
+        method:"post",
         params: {opusId: data}
     })
 }
 //作品审核成功
-
 export  function getOpusShen(id,updFlag){
     return request({
         url:"/Opus/updateOpus",
-        method:"get",
-        params:{opusId: Id, updFlag: updFlag}
+        method:"post",
+        params:{opusId: id, updFlag: updFlag}
+    })
+}
+//逻辑删除
+export  function getOpusDel(id){
+    return request({
+        url:"/Opus/delOpus",
+        method:"post",
+        params:{opusId: id}
+    })
+}
+//作品添加（需审核）
+export  function getOpusAdd(data){
+    return request({
+        url:"/Opus/addOpus",
+        method:"post",
+        data
+    })
+}
+// 彻底删除
+export  function getOpusDelete(opusId){
+    return request({
+        url:"/Opus/opusDelete",
+        method:"post",
+        params:{"opusId":opusId}
     })
 }
