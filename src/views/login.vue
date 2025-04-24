@@ -1,5 +1,4 @@
 <template>
-{{typeList}}
   <div class="login-container">
     <!-- 左侧内容，包含 logo 和登录表单 -->
     <div class="left-section">
@@ -39,56 +38,57 @@
         </div>
         <button type="submit" class="login-button">登录</button>
       </form>
-      <el-dialog
-          v-model="dialogVisible"
-          title="用户注册"
-          width="300"
-          :before-close="handleClose"
-          class="custom-dialog"
-      >
-        头像：
-        <el-upload
-            class="avatar-uploader"
-            action="/api/user/photo"
-            :show-file-list="false"
-            :on-success="handleAvatarSuccess"
-            :before-upload="beforeAvatarUpload"
-        >
-          <img v-if="imageUrl" :src="imageUrl" class="avatar"  style="width: 100px; height: 100px;" />
-          <el-icon v-else class="avatar-uploader-icon"><Plus /></el-icon>
-        </el-upload>
-        <el-form
-            ref="ruleFormRef"
-            style="max-width: 600px"
-            :model="ruleForm"
-            :rules="rules"
-            label-width="auto"
-            class="demo-ruleForm"
-            :size="formSize"
-            status-icon
-        >
-          <el-form-item prop="userName1">
-            <el-input v-model="ruleForm.userName1" placeholder="请输入用户名" />
-          </el-form-item>
-          <el-form-item prop="username">
-            <el-input v-model="ruleForm.username" placeholder="请输入账号" />
-          </el-form-item>
-          <el-form-item prop="password">
-            <el-input v-model="ruleForm.password" placeholder="请输入密码" />
-          </el-form-item>
-          <el-form-item prop="password2">
-            <el-input v-model="ruleForm.password2" placeholder="请确认密码" @blur="result" />
-          </el-form-item>
-          <el-form-item>
-            <el-button type="primary" @click="submitForm(ruleFormRef)">
-              注册
-            </el-button>
-            <el-button @click="resetForm(ruleFormRef)">重置</el-button>
-          </el-form-item>
-        </el-form>
-      </el-dialog>
+
     </div>
   </div>
+  <el-dialog
+      v-model="dialogVisible"
+      title="用户注册"
+      width="300"
+      :before-close="handleClose"
+      class="custom-dialog"
+  >
+    头像：
+    <el-upload
+        class="avatar-uploader"
+        action="/api/user/photo"
+        :show-file-list="false"
+        :on-success="handleAvatarSuccess"
+        :before-upload="beforeAvatarUpload"
+    >
+      <img v-if="imageUrl" :src="imageUrl" class="avatar"  style="width: 100px; height: 100px;" />
+      <el-icon v-else class="avatar-uploader-icon"><Plus /></el-icon>
+    </el-upload>
+    <el-form
+        ref="ruleFormRef"
+        style="max-width: 600px"
+        :model="ruleForm"
+        :rules="rules"
+        label-width="auto"
+        class="demo-ruleForm"
+        :size="formSize"
+        status-icon
+    >
+      <el-form-item prop="userName1">
+        <el-input v-model="ruleForm.userName1" placeholder="请输入用户名" />
+      </el-form-item>
+      <el-form-item prop="username">
+        <el-input v-model="ruleForm.username" placeholder="请输入账号" />
+      </el-form-item>
+      <el-form-item prop="password">
+        <el-input v-model="ruleForm.password" placeholder="请输入密码" />
+      </el-form-item>
+      <el-form-item prop="password2">
+        <el-input v-model="ruleForm.password2" placeholder="请确认密码" @blur="result" />
+      </el-form-item>
+      <el-form-item>
+        <el-button type="primary" @click="submitForm(ruleFormRef)">
+          注册
+        </el-button>
+        <el-button @click="resetForm(ruleFormRef)">重置</el-button>
+      </el-form-item>
+    </el-form>
+  </el-dialog>
 </template>
 
 <script setup>
@@ -393,8 +393,6 @@ input[type="password"]:focus {
   border-radius: 12px;
   box-shadow: 0 0 20px rgba(0, 216, 214, 0.5);
   color: #d2dae2;
-  /* 隐藏滚动条 */
-  overflow: hidden;
 }
 
 .custom-dialog__header {
@@ -446,5 +444,25 @@ input[type="password"]:focus {
 .el-button--primary:focus {
   outline: none;
   box-shadow: 0 0 20px #00f2f2;
+}
+.avatar-uploader .el-upload {
+  border: 1px dashed var(--el-border-color);
+  border-radius: 6px;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  transition: var(--el-transition-duration-fast);
+}
+
+.avatar-uploader .el-upload:hover {
+  border-color: var(--el-color-primary);
+}
+
+.el-icon.avatar-uploader-icon {
+  font-size: 28px;
+  color: #8c939d;
+  width: 178px;
+  height: 178px;
+  text-align: center;
 }
 </style>
