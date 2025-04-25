@@ -30,14 +30,14 @@
       <span v-for="i in code.row.opusTypes">{{i.type.typeName}}&nbsp;</span>
     </el-table-column>
     <el-table-column prop="user" label="作者" width="120" />
-    <el-table-column fixed="right" label="操作" min-width="120">
+    <el-table-column fixed="right" label="操作" min-width="120" >
       <template #default="code">
         <el-button link type="primary" size="small" @click="delOpus(code.row.opusId,code.row.opusTitle)"
-                   class="game-operation-button">
+                   class="game-operation-button" v-if="role == 1 || role == 2">
           <i class="el-icon-delete"></i> 删除
         </el-button>
         <el-button link type="primary" size="small" @click="updateOpus(code.row.opusId)"
-                   class="game-operation-button">
+                   class="game-operation-button" v-if="role == 1 || role == 2">
           <i class="el-icon-edit"></i> 修改
         </el-button>
         <el-button link type="primary" size="small" @click="opusShow(code.row.opusId)"
@@ -84,7 +84,8 @@ import router from "@/router/index.js";
 import { ElMessage } from "element-plus";
 import {getTypeAll} from "@/assets/type.js";
 import {getOpusDel, getOpusList} from "@/assets/opus.js";
-
+// 获取权限
+let role = localStorage.getItem("role");
 // 对话框提示信息
 let log = ref({
   log: ""
