@@ -167,74 +167,74 @@ const updateTheme = () => {
 };
 
 // 弹幕
-let put = ref(null);
-setInterval(() => { ajs() }, 600);
-let arr1 = ['这个好玩', '作者真是个天才', '再写一个吧', '哈哈哈哈哈笑死我了', '阿巴阿巴阿巴', '好玩，爱玩，下次还玩'];
-let arr2 = [''];
+// let put = ref(null);
+// setInterval(() => { ajs() }, 600);
+// let arr1 = ['这个好玩', '作者真是个天才', '再写一个吧', '哈哈哈哈哈笑死我了', '阿巴阿巴阿巴', '好玩，爱玩，下次还玩'];
+// let arr2 = [''];
 
-function ajs2() {
-  let ps = document.createElement('p');
-  ps.classList.add('ps');
-  if (!put.value || put.value.value === '') {
-    return alert('弹幕为空');
-  }
-  ps.textContent = `${put.value.value}`;
-  const wrapper = document.querySelector('.article-wrapper');
-  if (wrapper) {
-    wrapper.appendChild(ps);
-  }
-  let p = document.querySelectorAll('p');
-  p[p.length - 1].style.backgroundColor = `rgb(${sj3()},${sj3()},${sj3()})`;
-  p[p.length - 1].style.top = `${sj()}vh`;
-  p[p.length - 1].style.left = `0`;
+// function ajs2() {
+//   let ps = document.createElement('p');
+//   ps.classList.add('ps');
+//   if (!put.value || put.value.value === '') {
+//     return alert('弹幕为空');
+//   }
+//   ps.textContent = `${put.value.value}`;
+//   const wrapper = document.querySelector('.article-wrapper');
+//   if (wrapper) {
+//     wrapper.appendChild(ps);
+//   }
+//   let p = document.querySelectorAll('p');
+//   p[p.length - 1].style.backgroundColor = `rgb(${sj3()},${sj3()},${sj3()})`;
+//   p[p.length - 1].style.top = `${sj()}vh`;
+//   p[p.length - 1].style.left = `0`;
 
-  put.value.value = '';
-}
+//   put.value.value = '';
+// }
 
-function ajs() {
-  let ps = document.createElement('p');
-  ps.classList.add('ps');
-  ps.textContent = `${arr1[sj2()]}`;
-  const wrapper = document.querySelector('.article-wrapper');
-  if (wrapper) {
-    wrapper.appendChild(ps);
-  }
-  let p = document.querySelectorAll('.ps');
-  p[p.length - 1].style.backgroundColor = `rgb(${sj3()},${sj3()},${sj3()})`;
-  p[p.length - 1].style.top = `${sj()}vh`;
-  p[p.length - 1].style.left = `0`;
-}
+// function ajs() {
+//   let ps = document.createElement('p');
+//   ps.classList.add('ps');
+//   ps.textContent = `${arr1[sj2()]}`;
+//   const wrapper = document.querySelector('.article-wrapper');
+//   if (wrapper) {
+//     wrapper.appendChild(ps);
+//   }
+//   let p = document.querySelectorAll('.ps');
+//   p[p.length - 1].style.backgroundColor = `rgb(${sj3()},${sj3()},${sj3()})`;
+//   p[p.length - 1].style.top = `${sj()}vh`;
+//   p[p.length - 1].style.left = `0`;
+// }
 
-function sj() {
-  return parseInt(Math.random() * 100);
-}
+// function sj() {
+//   return parseInt(Math.random() * 100);
+// }
 
-function sj2() {
-  return parseInt(Math.random() * arr1.length);
-}
+// function sj2() {
+//   return parseInt(Math.random() * arr1.length);
+// }
 
-function sj3() {
-  return parseInt(Math.random() * 256);
-}
+// function sj3() {
+//   return parseInt(Math.random() * 256);
+// }
 
-onMounted(async () => {
-  await initData();
-  updateTheme();
-  // 每2秒检查一次时间并更新主题
-  setInterval(updateTheme, 2 * 1000);
-  put.value = document.querySelector('input');
-  put.value.addEventListener('focus', function () {
-    put.value.placeholder = ''
-  });
-  put.value.addEventListener('blur', function () {
-    put.value.placeholder = '发送你的弹幕'
-  });
-  put.value.onkeydown = function (e) {
-    if (e.key === 'Enter') {
-      ajs2();
-    }
-  };
-});
+// onMounted(async () => {
+//   await initData();
+//   updateTheme();
+//   // 每2秒检查一次时间并更新主题
+//   setInterval(updateTheme, 2 * 1000);
+//   put.value = document.querySelector('input');
+//   put.value.addEventListener('focus', function () {
+//     put.value.placeholder = ''
+//   });
+//   put.value.addEventListener('blur', function () {
+//     put.value.placeholder = '发送你的弹幕'
+//   });
+//   put.value.onkeydown = function (e) {
+//     if (e.key === 'Enter') {
+//       ajs2();
+//     }
+//   };
+// });
 </script>
 
 <style scoped>
@@ -431,7 +431,7 @@ video {
   }
 }
 
-button {
+.button1 {
   z-index: 1000;
   width: 5vw;
   height: 4vh;
