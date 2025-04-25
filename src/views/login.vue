@@ -51,7 +51,7 @@
     头像：
     <el-upload
         class="avatar-uploader"
-        action="https://abab5-153392-5-1329683064.sh.run.tcloudbase.com/user/photo"
+        action="/api/user/photo"
         :show-file-list="false"
         :on-success="handleAvatarSuccess"
         :before-upload="beforeAvatarUpload"
@@ -164,7 +164,7 @@ const rules = reactive({
   ],
 });
 
-// 登录方法
+// 注册
 const submitForm = async (formEl) => {
   if (!formEl) return;
   await formEl.validate((valid, fields) => {
@@ -213,9 +213,10 @@ const handleLogin = () => {
       localStorage.setItem('photo', res.data.data.photo);
       localStorage.setItem('user', res.data.data.userName1);
       localStorage.setItem("userId", res.data.data.userId);
+      localStorage.setItem("role", res.data.data.role);
       router.push('/main');
     } else {
-      ElMessage.error('登陆失败');
+      ElMessage.error('登陆失败，账号或密码有误');
     }
   });
 };
