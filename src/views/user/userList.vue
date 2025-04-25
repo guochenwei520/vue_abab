@@ -18,11 +18,23 @@
       </template>
     </el-table-column>
   </el-table>
+  <el-pagination
+      v-model:current-page="pageData.pageNum"
+      v-model:page-size="pageData.pageSize"
+      :page-sizes="[5, 10, 20, 100]"
+      :size="size"
+      :disabled="disabled"
+      :background="background"
+      layout="sizes, prev, pager, next"
+      :total="total"
+      @size-change="handleSizeChange"
+      @current-change="handleCurrentChange"
+      class="game-pagination"
+  />
 </template>
 
 <script setup>
 import { ref } from 'vue';
-import axios from "axios";
 import {getUserAll} from "@/assets/user.js";
 
 const userList=ref()
@@ -30,12 +42,24 @@ const pageData=ref({
   pageNum:1,
   pageSize:20
 })
+const total = ref()
 function userData(){
  getUserAll(pageData.value).then(res=>{
     if (res.data.code === 200){
       userList.value=res.data.data.records
+      total.value = res.data.data.total
     }
   })
+}
+// 分页
+const handleSizeChange = (val) => {
+  pageData.value.pageSize = val;
+  userData();
+}
+
+const handleCurrentChange = (val) => {
+  pageData.value.pageNum = val;
+  userData();
 }
 userData()
 // location.reload()
