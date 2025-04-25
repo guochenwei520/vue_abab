@@ -1,7 +1,7 @@
 <script setup>
 let photo = localStorage.getItem("photo")
 let user = localStorage.getItem("user")
-
+let role = localStorage.getItem("role")
 function clear() {
   localStorage.clear()
 }
@@ -16,7 +16,7 @@ function clear() {
         @select="handleSelect"
         router
     >
-      <el-menu-item index="process">审核</el-menu-item>
+      <el-menu-item index="process" v-if="role==1 || role == 2">审核</el-menu-item>
 <!--      <el-sub-menu index="2">-->
 <!--        <template #title>Workspace</template>-->
 <!--        <el-menu-item index="2-1">item one</el-menu-item>-->
@@ -31,7 +31,7 @@ function clear() {
 <!--      </el-sub-menu>-->
       <el-menu-item index="/opus">上传</el-menu-item>
       <div>
-       <el-avatar :size="50" :src="photo" style="margin-left: 20px"/>
+        <el-avatar :size="50" :src="photo" style="margin-left: 20px"/>
 
       </div>
       <p style="color: #000000; margin-left: 5px">{{ user }}</p>
