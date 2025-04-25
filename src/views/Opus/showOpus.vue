@@ -217,24 +217,24 @@ const updateTheme = () => {
 //   return parseInt(Math.random() * 256);
 // }
 
-// onMounted(async () => {
-//   await initData();
-//   updateTheme();
-//   // 每2秒检查一次时间并更新主题
-//   setInterval(updateTheme, 2 * 1000);
-//   put.value = document.querySelector('input');
-//   put.value.addEventListener('focus', function () {
-//     put.value.placeholder = ''
-//   });
-//   put.value.addEventListener('blur', function () {
-//     put.value.placeholder = '发送你的弹幕'
-//   });
-//   put.value.onkeydown = function (e) {
-//     if (e.key === 'Enter') {
-//       ajs2();
-//     }
-//   };
-// });
+onMounted(async () => {
+  await initData();
+  updateTheme();
+  // 每2秒检查一次时间并更新主题
+  setInterval(updateTheme, 2 * 1000);
+  put.value = document.querySelector('input');
+  put.value.addEventListener('focus', function () {
+    put.value.placeholder = ''
+  });
+  put.value.addEventListener('blur', function () {
+    put.value.placeholder = '发送你的弹幕'
+  });
+  put.value.onkeydown = function (e) {
+    if (e.key === 'Enter') {
+      ajs2();
+    }
+  };
+});
 </script>
 
 <style scoped>
